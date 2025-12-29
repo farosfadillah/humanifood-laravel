@@ -1,52 +1,179 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Humanifood - Laravel Migration
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is the Laravel version of the Humanifood project, migrated from a legacy PHP application.
 
-## About Laravel
+## Project Structure
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```
+humanifood-laravel/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       └── LegacyController.php      # Legacy PHP router
+│   └── LegacyEndpoints/                 # Legacy endpoint files
+├── legacy_source/                        # Original PHP application
+│   ├── _function.php                    # Database & utility functions
+│   ├── auth.php                         # Authentication logic
+│   ├── endpoint/                        # API endpoints
+│   ├── includes/                        # Shared includes
+│   ├── page/                            # Page templates
+│   └── page_admin/                      # Admin panel
+├── public/
+│   ├── assets/                          # CSS, JS, fonts
+│   ├── image/                           # Product images, gallery, etc.
+│   └── js/                              # JavaScript files & CKEditor
+├── resources/
+│   ├── legacy_includes/                 # Legacy included files
+│   └── legacy_pages/                    # Legacy page templates
+├── routes/
+│   └── web.php                          # Route definitions
+└── storage/                             # Logs, cache, sessions
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation & Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
+- PHP 8.1+ with `mysqli` extension
+- MySQL 5.7 or later
+- Composer
+- Node.js (optional, for asset compilation)
 
-## Learning Laravel
+### 1. Clone the Repository
+```bash
+git clone https://github.com/farosfadillah/humanifood-laravel.git
+cd humanifood-laravel
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 2. Install Dependencies
+```bash
+composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Environment Configuration
+Copy the example environment file and update it with your database credentials:
 
-## Laravel Sponsors
+```bash
+cp .env.example .env
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Edit `.env` and set these values:
+```env
+APP_NAME=Humanifood
+APP_URL=http://localhost/humanifood-laravel
 
-### Premium Partners
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=humanifood_laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 4. Database Setup
+Import the database schema:
+```bash
+mysql -u root -p humanifood_laravel < humanifood.sql
+```
 
-## Contributing
+Or if you're using XAMPP (MySQL without password):
+```bash
+C:\xampp\mysql\bin\mysql.exe -u root humanifood_laravel < humanifood.sql
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5. Generate Application Key
+```bash
+php artisan key:generate
+```
 
-## Code of Conduct
+### 6. Serve the Application
+
+**Using PHP's built-in server:**
+```bash
+php artisan serve
+```
+Access: http://localhost:8000
+
+**Using XAMPP:**
+Place the project in `C:\xampp\htdocs\humanifood-laravel\` and access via:
+http://localhost/humanifood-laravel/public
+
+## Features
+
+### Current Implementation
+- **Legacy PHP Compatibility Layer**: All existing PHP pages run under Laravel via `LegacyController`
+- **Database**: MySQL database `humanifood_laravel` with all original tables
+- **Assets**: All images, CSS, JavaScript, and CKEditor files are in `public/`
+- **Endpoints**: Original endpoint files preserved in `app/LegacyEndpoints/` and `legacy_source/endpoint/`
+
+### Database Connection
+The legacy code reads database credentials from `.env`:
+- DB_HOST (default: 127.0.0.1)
+- DB_USERNAME (default: root)
+- DB_PASSWORD (default: empty)
+- DB_DATABASE (default: humanifood_laravel)
+
+### Routes
+All requests are routed through the catch-all route in `routes/web.php` which maps to `LegacyController::serve()`:
+- `/` → `legacy_source/index.php`
+- `/about` → `legacy_source/page/about.php`
+- `/contact` → `legacy_source/page/contact.php`
+- `/gallery` → `legacy_source/page/gallery.php`
+- `/portfolio` → `legacy_source/page/portfolio.php`
+- `/masuk` → `legacy_source/page/auth/login.php`
+- `/daftar` → `legacy_source/page/auth/regist.php`
+
+### Authentication
+Uses the legacy authentication system from `_function.php` and `endpoint/auth.php`. Session data is stored in `$_SESSION['_userid']`.
+
+### File Uploads
+All file upload handling is preserved from the original application. Uploaded files are saved to the legacy structure.
+
+## Migration Path
+
+The current setup allows you to:
+1. **Keep the app running** while migrating piece by piece
+2. **Gradually convert** legacy PHP pages to Laravel Blade templates and controllers
+3. **Migrate database queries** from mysqli to Eloquent/Laravel Query Builder
+4. **Refactor endpoints** into proper Laravel API routes and controllers
+
+### Example: Migrating a Page
+When you're ready to modernize a page (e.g., `gallery.php`):
+1. Create a new Blade template: `resources/views/gallery.blade.php`
+2. Create a controller: `app/Http/Controllers/GalleryController.php`
+3. Add a route in `routes/web.php`
+4. Copy the database queries and convert them to Eloquent
+
+## Troubleshooting
+
+### Database Connection Error
+- Verify MySQL is running (`C:\xampp\control_panel.exe`)
+- Check DB credentials in `.env`
+- Ensure database `humanifood_laravel` exists
+
+### 404 Errors on Pages
+- Verify the legacy file exists in `legacy_source/`
+- Check file permissions
+- Review logs in `storage/logs/laravel.log`
+
+### Asset Not Loading (CSS, JS, Images)
+- Ensure files exist in `public/assets/`, `public/image/`, `public/js/`
+- Update `APP_URL` in `.env` if using a different base path
+
+### Session/Login Issues
+- Ensure `storage/framework/sessions/` directory is writable
+- Check that `_SESSION` variables are being set correctly
+- Verify cookies are enabled in your browser
+
+## Support
+
+For issues with the legacy code, refer to the original PHP files in `legacy_source/`.
+For Laravel-specific questions, visit: https://laravel.com/docs
+
+---
+
+**Last Updated**: December 29, 2025
+**Laravel Version**: 12.x
+**PHP Version**: 8.1+
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
