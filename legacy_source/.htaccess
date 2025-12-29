@@ -1,0 +1,20 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^http://localhost/cips/ [NC]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteRule ^portfolio$ page.php?slug=portfolio [NC,L,QSA]
+RewriteRule ^gallery$ page.php?slug=gallery [NC,L,QSA]
+RewriteRule ^about$ page.php?slug=about [NC,L,QSA]
+RewriteRule ^contact$ page.php?slug=contact [NC,L,QSA]
+
+RewriteRule ^produk/(.*)$ page.php?type=product&slug=$1 [NC,L,QSA]
+
+RewriteRule ^masuk(.*)$ auth.php?target=in [NC,L,QSA]
+RewriteRule ^daftar(.*)$ auth.php?target=up [NC,L,QSA]
+RewriteRule ^lupa(.*)$ auth.php?target=reset [NC,L,QSA]
+RewriteRule ^keluar(.*)$ auth.php?target=logout [NC,L,QSA]
+
+RewriteRule ^order$ page.php?type=order [NC,L,QSA]
+RewriteRule ^myOrder$ page.php?type=myOrder [NC,L,QSA]
