@@ -1,0 +1,8 @@
+<div id="content-wrapper">
+    <div class="container">
+        <h1 class="special">Tentang Kami</h1>
+        <p>PT. Ghaniya Berkah berdiri sejak bulan Oktober 2012, berdomisili usaha di kawasan Kuningan Jakarta. Produk kami cukup baik disambut oleh masyarakat sehingga dapat berkembang dengan baik saat itu. Meski dengan modal terbatas dan kapasitas produksi yang belum memadai. Perkembangan bisnis kuliner saat itu menjadi angin segar untuk kami mengembangkan bisnis penyediaan makanan yang fokus untuk pesanan makanan dalam jumlah banyak. </p>
+        <p>Beberapa perusahaan swasta maupun pemerintahan mulai kami tangani saat itu. Hingga saat ini sudah lebih dari 20 perusahaan yang menggunakan jasa kami. Dari industri pertelevisian, rumah produksi, energi, properti, farmasi dan sebagainya. Alhamdulillah, pelanggan setia kami hingga saat ini masih komit menyajikan hidangan terbaik dari kami untuk karyawan mereka. Pelanggan setia kami mempercayakan pengadaan makanan untuk berbagai kegiatan seperti rapat umum, rapat khusus, pelatihan internal, kegiatan indoor maupun outdoor, Gathering dan kegiatan lainnya.</p>
+        <p>Pertengahan 2019 menjadi fase metamorfosis perusahaan dengan bergabungnya di bawah group HUMANIWORKS dengan bendera Humanifood dengan nama usaha HMFD catering service. Pengembangan produk dan perapihan manajemen telah dilakukan hingga perusahaan saat ini telah memiliki tujuan jangka pendek, jangka menengah maupun jangka panjang. Semoga kedepan Humanifood lebih dapat berkontribusi bagi masyarakat luas, baik di dunia bisnis perkateringan dan makanan maupun stakeholders perkulineran Indonesia.</p>
+    </div>
+</div>
